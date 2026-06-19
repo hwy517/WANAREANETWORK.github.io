@@ -664,4 +664,58 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 3rem 4rem;    /* 좌우 패딩을 늘려서 너무 끝까지 붙지 않게 조절 */
   margin: 0;             /* 중앙 정렬 제거 */
 }
-
+@media (max-width: 860px) {
+  .site-name {
+    display: none;
+  }
+  .header-nav {
+    gap: 0.1rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .nav-link {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.4rem;
+    white-space: nowrap;
+  }
+  .about-main {
+    grid-template-columns: 1fr;
+    align-items: flex-start;
+  }
+  .about-intro {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: none;
+    padding: 2rem 1.5rem 1rem;
+  }
+  .about-images {
+    padding: 1rem 1.5rem 2rem;
+    min-height: auto;
+  }
+  .about-img-sub-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-img-sub--1,
+  .about-img-sub--2 {
+    width: 100%;
+  }
+  .viewer-main-img {
+    flex: 1;
+    min-height: 0;
+    padding: 0;
+  }
+  .viewer-main-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .viewer-strip img {
+    height: 40px;
+    max-width: calc(25% - 10px);
+  }
+  .viewer-info {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
