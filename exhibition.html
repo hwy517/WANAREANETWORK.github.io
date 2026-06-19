@@ -1,0 +1,94 @@
+
+html<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exhibition — WANAREA NETWORK</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+</head>
+<body class="page-archive">
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="site-name">주현완</a>
+    </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">About</a>
+      <a href="archive.html" class="nav-link">Work</a>
+      <a href="cv.html" class="nav-link">CV</a>
+      <a href="mailto:krhwyy@gmail.com" class="nav-link">Contact</a>
+      <a href="exhibition.html" class="nav-link active">Exhibition</a>
+      <a href="https://instagram.com/3qcnet" target="_blank" class="nav-link">Instagram</a>
+    </nav>
+    </nav>
+  </header>
+
+  <div class="archive-topbar">
+    <h1 class="archive-title">Exhibition</h1>
+  </div>
+
+  <main class="archive-main">
+    <div class="archive-table-header">
+      <span class="col-num"></span>
+      <span class="col-title">Title</span>
+      <span class="col-cat">Location</span>
+      <span class="col-year">Year</span>
+    </div>
+
+    <div class="archive-list">
+
+      <!-- ✏️ 전시 추가할 때 아래 블록 복사해서 붙여넣기 -->
+
+     <div class="archive-row" data-cat="all"
+  data-type="photo"
+  data-link=""
+  data-url="https://chasirin.github.io/zipzipplz/portfolio/index.html"
+  data-images="images/"
+  data-caption="Seoul, 17717 Gallery, 2026.8.27-9.3"
+  data-desc="Group Exhibition">
+  <span class="col-num">01</span>
+  <span class="col-title" style="padding: 1rem 0;">
+    빈집털기
+  </span>
+  <span class="col-cat">서울</span>
+  <span class="col-year">2026</span>
+</div>
+
+<div class="archive-row" data-cat="all"
+  data-type="photo"
+  data-link=""
+  data-images="images/o1.jpeg,images/o2.jpeg"
+  data-caption="Seoul, Galerie PICI, 2024.12.4-12.9"
+  data-desc="Group Exhibition">
+  <span class="col-num">02</span>
+  <span class="col-title" style="padding: 1rem 0;">
+    O Seul Bit 
+  </span>
+  <span class="col-cat">서울</span>
+  <span class="col-year">2024</span>
+</div>
+    </div>
+  </main>
+  <div id="workPanel" class="work-panel">
+  <div class="panel-inner">
+    <button class="panel-close" id="panelClose">✕</button>
+    <div class="panel-images" id="panelImages"></div>
+    <div class="panel-text">
+      <p class="panel-title" id="panelTitle"></p>
+      <p class="panel-caption" id="panelCaption"></p>
+      <p class="panel-desc" id="panelDesc"></p>
+      <a class="panel-link" id="panelLink" target="_blank" >If you touch here, You can see more </a>
+    </div>
+  </div>
+</div>
+<div class="panel-overlay" id="panelOverlay"></div>
+
+  <footer class="site-footer">
+    <span>© WANAREANETWORK</span>
+  </footer>
+
+  <script src="js/archive.js"></script>
+</body>
+</html>
