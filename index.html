@@ -76,7 +76,140 @@
 
 
   </main>
+<div style="display:flex; justify-content:center; margin: 40px 0;">
+  <canvas id="rolling-circles-canvas" width="640" height="420" style="max-width:100%; height:auto;"></canvas>
+</div>
 
+<script>
+(function() {
+  const CIRCLE_COUNT   = 30;
+  const CIRCLE_RADIUS  = 18;
+  const CIRCLE_COLOR   = '#FF0000';
+  const BORDER_COLOR   = '#111111';
+  const BORDER_WIDTH   = 2;
+
+  const BOX_W = 420;
+  const BOX_H = 280;
+
+  const ROTATE_EASE    = 0.12;
+  const GRAVITY        = 1600;
+  const FRICTION       = 0.985;
+  const WALL_BOUNCE    = 0.35;
+  const BALL_BOUNCE    = 0.6;
+
+  const canvas = document.getElementById('rolling-circles-canvas');
+  const ctx = canvas.getContext('2d');
+  const boxCenter = { x: canvas.width / 2, y: canvas.height / 2 };
+
+  let boxAngle = 0, targetAngle = 0;
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  const balls = [];
+  for (let i = 0; i < CIRCLE_COUNT; i++) {
+    balls.push({
+      ox: rand(-BOX_W / 2 + CIRCLE_RADIUS, BOX_W / 2 - CIRCLE_RADIUS),
+      oy: rand(-BOX_H / 2 + CIRCLE_RADIUS, BOX_H / 2 - CIRCLE_RADIUS),
+      vx: rand(-20, 20),
+      vy: rand(-20, 20)
+    });
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    targetAngle = Math.atan2(my - boxCenter.y, mx - boxCenter.x);
+  });
+
+  function shortestAngleDelta(from, to) {
+    let d = (to - from) % (Math.PI * 2);
+    if (d > Math.PI) d -= Math.PI * 2;
+    if (d < -Math.PI) d += Math.PI * 2;
+    return d;
+  }
+
+  function update(dt) {
+    const delta = shortestAngleDelta(boxAngle, targetAngle);
+    boxAngle += delta * ROTATE_EASE;
+
+    const gx = 0, gy = GRAVITY;
+    const cos = Math.cos(boxAngle), sin = Math.sin(boxAngle);
+    const localGx =  gx * cos + gy * sin;
+    const localGy = -gx * sin + gy * cos;
+
+    const halfW = BOX_W / 2 - CIRCLE_RADIUS;
+    const halfH = BOX_H / 2 - CIRCLE_RADIUS;
+
+    for (const b of balls) {
+      b.vx += localGx * dt;
+      b.vy += localGy * dt;
+      b.vx *= FRICTION;
+      b.vy *= FRICTION;
+      b.ox += b.vx * dt;
+      b.oy += b.vy * dt;
+
+      if (b.ox < -halfW) { b.ox = -halfW; b.vx = -b.vx * WALL_BOUNCE; }
+      if (b.ox >  halfW) { b.ox =  halfW; b.vx = -b.vx * WALL_BOUNCE; }
+      if (b.oy < -halfH) { b.oy = -halfH; b.vy = -b.vy * WALL_BOUNCE; }
+      if (b.oy >  halfH) { b.oy =  halfH; b.vy = -b.vy * WALL_BOUNCE; }
+    }
+
+    for (let i = 0; i < balls.length; i++) {
+      for (let j = i + 1; j < balls.length; j++) {
+        const a = balls[i], b = balls[j];
+        const dx = b.ox - a.ox, dy = b.oy - a.oy;
+        const dist = Math.hypot(dx, dy);
+        const minDist = CIRCLE_RADIUS * 2;
+
+        if (dist > 0 && dist < minDist) {
+          const overlap = (minDist - dist) / 2;
+          const nx = dx / dist, ny = dy / dist;
+          a.ox -= nx * overlap; a.oy -= ny * overlap;
+          b.ox += nx * overlap; b.oy += ny * overlap;
+
+          const rvx = b.vx - a.vx, rvy = b.vy - a.vy;
+          const velAlongNormal = rvx * nx + rvy * ny;
+          if (velAlongNormal < 0) {
+            const impulse = -(1 + BALL_BOUNCE) * velAlongNormal / 2;
+            a.vx -= impulse * nx; a.vy -= impulse * ny;
+            b.vx += impulse * nx; b.vy += impulse * ny;
+          }
+        }
+      }
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.translate(boxCenter.x, boxCenter.y);
+    ctx.rotate(boxAngle);
+
+    ctx.strokeStyle = BORDER_COLOR;
+    ctx.lineWidth = BORDER_WIDTH;
+    ctx.strokeRect(-BOX_W / 2, -BOX_H / 2, BOX_W, BOX_H);
+
+    ctx.fillStyle = CIRCLE_COLOR;
+    for (const b of balls) {
+      ctx.beginPath();
+      ctx.arc(b.ox, b.oy, CIRCLE_RADIUS, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  let lastTime = performance.now();
+  function loop(now) {
+    const dt = Math.min((now - lastTime) / 1000, 0.033);
+    lastTime = now;
+    update(dt);
+    draw();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
     <span> Copyright © WANAREANETWORK All Right Reserved. </span>
