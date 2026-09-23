@@ -117,6 +117,19 @@
     const my = e.clientY - rect.top;
     targetAngle = Math.atan2(my - boxCenter.y, mx - boxCenter.x);
   });
+  function handleTouch(e) {
+  if (e.touches.length === 0) return;
+  e.preventDefault();
+
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const tx = touch.clientX - rect.left;
+  const ty = touch.clientY - rect.top;
+
+  targetAngle = Math.atan2(ty - boxCenter.y, tx - boxCenter.x);
+}
+canvas.addEventListener('touchstart', handleTouch, { passive: false });
+canvas.addEventListener('touchmove', handleTouch, { passive: false });
 
   function shortestAngleDelta(from, to) {
     let d = (to - from) % (Math.PI * 2);
