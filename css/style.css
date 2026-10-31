@@ -719,3 +719,5 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     padding: 1rem 1.5rem 2rem;
   }
 }
+.archive-table-header { border-bottom: none; }
+.archive-row { border-top: none; }
