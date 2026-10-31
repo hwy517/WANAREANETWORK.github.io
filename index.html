@@ -211,9 +211,6 @@ canvas.addEventListener('touchmove', handleTouch, { passive: false });
     ctx.translate(boxCenter.x, boxCenter.y);
     ctx.rotate(boxAngle);
 
-    ctx.strokeStyle = BORDER_COLOR;
-    ctx.lineWidth = BORDER_WIDTH;
-    ctx.strokeRect(-BOX_W / 2, -BOX_H / 2, BOX_W, BOX_H);
 
     ctx.fillStyle = CIRCLE_COLOR;
     for (const b of balls) {
