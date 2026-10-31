@@ -127,12 +127,13 @@
     });
   }
 
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-    targetAngle = Math.atan2(my - boxCenter.y, mx - boxCenter.x);
-  });
+canvas.addEventListener('mousemove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  targetAngle = Math.atan2(
+    e.clientY - (rect.top + rect.height / 2),
+    e.clientX - (rect.left + rect.width / 2)
+  );
+});
   function handleTouch(e) {
   if (e.touches.length === 0) return;
   e.preventDefault();
