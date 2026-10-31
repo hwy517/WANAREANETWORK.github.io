@@ -721,24 +721,3 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .archive-table-header { border-bottom: none; }
 .archive-row { border-top: none; }
-/* Exhibition 패널: 더 꽉 차게 */
-.work-panel {
-  width: min(1100px, 75vw);   /* 화면의 75%까지 (최대 1100px) */
-}
-.panel-inner {
-  padding: 3.5rem 2rem 3rem;  /* 바깥 여백 줄임 */
-}
-.panel-images {
-  gap: 0.5rem;
-}
-.panel-images img {
-  width: 100%;
-  height: auto;
-}
-.panel-desc {
-  max-width: 48rem;           /* 글이 너무 길게 퍼지지 않게 */
-}
-
-@media (max-width: 860px) {
-  .work-panel { width: 100vw; }
-}
