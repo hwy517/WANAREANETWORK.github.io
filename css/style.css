@@ -749,5 +749,5 @@ html::-webkit-scrollbar { display: none; }
 /* 원 + 사각형 위로 올리기 */
 .page-about #rolling-circles-canvas {
   position: relative;
-  top: -50px;
+  top: -70px;
 }
