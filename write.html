@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
   <style>
-    /* Write 페이지 전용: 푸터를 항상 맨 아래로, 글은 archive와 같은 좌우 여백(2rem) */
+    /* ===== Write 페이지 전용 ===== */
     body.page-write {
       min-height: 100vh;
       min-height: 100dvh;
@@ -21,14 +21,71 @@
       flex: 1 0 auto;
       padding: 0 2rem 4rem;
     }
+
+    /* 글: 화면의 절반 폭 (A4 느낌) */
     .write-text {
-      max-width: 60rem;          /* 줄이 너무 길어지지 않게. 더 넓히려면 숫자를 키우세요 */
-      font-size: 0.88rem;        /* viewer-desc와 같은 크기 */
+      width: 50vw;
+      max-width: 50vw;
+      font-size: 0.88rem;
       line-height: 1.9;
-      white-space: pre-line;     /* 입력한 줄바꿈 그대로 */
+      white-space: pre-line;      /* 입력한 줄바꿈 그대로 */
+      word-break: keep-all;       /* 한글 단어 중간에서 안 끊기게 */
     }
+
+    /* 출력 버튼: 오른쪽 위에 고정 (글을 읽는 동안 항상 보임) */
+    .write-print-btn {
+      position: fixed;
+      right: 2rem;
+      top: calc(var(--header-h) + 3.2rem);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      padding: 0.3rem 0.9rem;
+      border: 1px solid var(--text);
+      border-radius: 100px;
+      transition: opacity 0.15s;
+      z-index: 20;
+    }
+    .write-print-btn:hover { opacity: 0.6; }
+    .write-print-btn:disabled { opacity: 0.3; cursor: default; }
+
     @media (max-width: 860px) {
       .write-main { padding: 0 1.5rem 3rem; }
+      .write-text { width: 100%; max-width: 100%; }
+      .write-print-btn { position: static; margin-bottom: 1.5rem; }
+    }
+
+    /* ===== 영수증 출력용 (화면에서는 숨김) ===== */
+    #receipt { display: none; }
+
+    @media print {
+      @page { margin: 0; }
+
+      /* 영수증 외의 모든 것을 인쇄에서 제외 */
+      body.page-write > *:not(#receipt) { display: none !important; }
+      body.page-write {
+        display: block;
+        min-height: 0;
+        background: #fff;
+      }
+
+      #receipt {
+        display: block;
+        width: 72mm;                    /* 프린터 실제 인쇄 폭 (SRP-E300 기준 72mm) */
+        padding: 5mm 4mm 16mm;          /* 아래 여백: 글이 커터에 안 잘리게 */
+        box-sizing: border-box;
+        color: #000;
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+        font-size: 11pt;
+        line-height: 1.7;
+        white-space: pre-line;
+        word-break: keep-all;
+      }
+      #receipt .receipt-time {
+        margin-top: 4mm;
+        font-size: 8pt;
+        color: #000;
+      }
     }
   </style>
 </head>
@@ -50,23 +107,104 @@
     </nav>
   </header>
 
-  <!-- ========== TITLE (archive와 같은 클래스) ========== -->
+  <!-- ========== TITLE ========== -->
   <div class="archive-topbar">
     <h1 class="archive-title">Write</h1>
   </div>
 
   <!-- ========== 글 ========== -->
   <main class="write-main">
-    <div class="write-text">가벼운 무게감과 편안한 착용감으로 광고를 했던  브랜드의 신발을 신고 걷는데 발걸음이 너무 무겁고 불편해서 어떻게 걷는지를 잊어버린 것 같다거나, 엘리베이터의 비상버튼을 충동적으로 누르고 싶다거나, 인생이라는 몇시간짜리 영화 속 한 시퀀스를 통째로 놓치고 있는 기분 따위의 것들. 이런 감각은 마치 하나의 장기기관처럼 느껴질 정도로 항상 수반되는 것이었다. 
-모든 작업은 일상 속에서 어렴풋이 느껴왔던 권태로움의 방아쇠가 되는 일화들에서 시작한다.
-</div>
+    <button type="button" class="write-print-btn" id="printBtn">출력</button>
+
+    <div class="write-text">여기에 글을 붙여넣으세요.
+줄바꿈은 입력한 그대로 보여요.
+
+문단 사이는 한 줄 비우면 돼요.
+
+글이 길어지면 이 아래로 계속 이어서 쓰면 됩니다.</div>
   </main>
+
+  <!-- ========== 영수증에 찍힐 내용 (화면에는 안 보여요) ========== -->
+  <div id="receipt" aria-hidden="true">
+    <div id="receiptText"></div>
+    <div class="receipt-time" id="receiptTime"></div>
+  </div>
 
   <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
     <span>Copyright © WANAREANETWORK All Right Reserved.</span>
     <a href="index.html" class="footer-work-link">← About</a>
   </footer>
+
+  <script>
+  (function () {
+    /* ✏️ 영수증에 랜덤으로 찍힐 문장들 — 아래 목록을 원하는 문장으로 바꾸세요.
+       문장 하나 = 따옴표 하나. 줄바꿈이 필요하면 \n 을 쓰세요. */
+    var SENTENCES = [
+      '첫 번째 문장을 여기에 적으세요.',
+      '두 번째 문장을 여기에 적으세요.\n줄바꿈은 이렇게 해요.',
+      '세 번째 문장을 여기에 적으세요.',
+      '네 번째 문장을 여기에 적으세요.',
+      '다섯 번째 문장을 여기에 적으세요.'
+    ];
+
+    var SHOW_TIME   = false;   // true 로 바꾸면 영수증 아래에 날짜·시간이 같이 찍혀요
+    var COOLDOWN_MS = 4000;    // 연타 방지: 한 번 누르면 이 시간 동안 버튼이 잠겨요
+
+    var btn         = document.getElementById('printBtn');
+    var receiptText = document.getElementById('receiptText');
+    var receiptTime = document.getElementById('receiptTime');
+
+    // 모든 문장을 한 번씩 다 쓴 뒤에 다시 섞어요 (같은 문장이 연달아 나오지 않게)
+    var bag = [];
+    var last = -1;
+
+    function refill() {
+      bag = [];
+      for (var i = 0; i < SENTENCES.length; i++) bag.push(i);
+      for (var j = bag.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var t = bag[j]; bag[j] = bag[k]; bag[k] = t;
+      }
+      // 새로 섞은 첫 번째가 직전 문장과 같으면 뒤로 보내기
+      if (bag.length > 1 && bag[bag.length - 1] === last) {
+        var swap = Math.floor(Math.random() * (bag.length - 1));
+        var tmp = bag[bag.length - 1];
+        bag[bag.length - 1] = bag[swap];
+        bag[swap] = tmp;
+      }
+    }
+
+    function pickSentence() {
+      if (bag.length === 0) refill();
+      last = bag.pop();
+      return SENTENCES[last];
+    }
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    btn.addEventListener('click', function () {
+      if (!SENTENCES.length) return;
+
+      receiptText.textContent = pickSentence();
+
+      if (SHOW_TIME) {
+        var d = new Date();
+        receiptTime.textContent =
+          d.getFullYear() + '.' + pad(d.getMonth() + 1) + '.' + pad(d.getDate()) +
+          ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+      } else {
+        receiptTime.textContent = '';
+      }
+
+      // 연타 방지
+      btn.disabled = true;
+      setTimeout(function () { btn.disabled = false; }, COOLDOWN_MS);
+
+      window.print();
+    });
+  })();
+  </script>
 
 </body>
 </html>
