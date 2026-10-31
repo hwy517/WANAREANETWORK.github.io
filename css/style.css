@@ -721,3 +721,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .archive-table-header { border-bottom: none; }
 .archive-row { border-top: none; }
+.about-headline {
+  font-weight: 400;      /* Based in Seoul 은 가볍게 */
+}
+.about-name {
+  font-weight: 800;      /* 이름만 볼드 */
+  font-size:     /* 이름만 더 크게 (1.2~1.8 사이로 조절) */
+}
