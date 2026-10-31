@@ -728,3 +728,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 800;      /* 이름만 볼드 */
   font-size:     /* 이름만 더 크게 (1.2~1.8 사이로 조절) */
 }
+/* 메인페이지: 스크롤 없애기 */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; }
+
+@media (min-width: 861px) {
+  body.page-about {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .page-about .site-footer {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+  }
+  .page-about #rolling-circles-canvas {
+    width: min(calc(100vh - 220px), 880px);
+  }
+}
