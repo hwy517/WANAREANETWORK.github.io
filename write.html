@@ -1,143 +1,75 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Write — WANAREANETWORK</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write — WANAREANETWORK</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
 
-<style>
-/* ===== Write 페이지 전용: 큰 화면(아이맥)에서 꽉 채우기 ===== */
-html, body.page-write { min-height: 100%; }
-
-body.page-write {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 헤더·본문·푸터가 같은 좌우 여백을 쓰고, 화면 폭에 따라 같이 커짐 */
-body.page-write .site-header,
-body.page-write .write-topbar,
-body.page-write .write-main,
-body.page-write .site-footer {
-  width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  padding-left: clamp(20px, 3vw, 64px);
-  padding-right: clamp(20px, 3vw, 64px);
-}
-
-/* 본문이 남는 세로 공간을 전부 차지 → 푸터는 항상 맨 아래 */
-body.page-write .write-main { flex: 1 0 auto; }
-
-.write-topbar {
-  padding-top: clamp(24px, 4vh, 56px);
-  padding-bottom: clamp(16px, 2.5vh, 32px);
-}
-.write-title {
-  margin: 0;
-  font-weight: 400;
-  font-size: clamp(28px, 3vw, 56px);
-}
-
-/* 글 목록 (Work 표와 같은 느낌) */
-.write-table-header,
-.write-row > summary {
-  display: grid;
-  grid-template-columns: 4rem 1fr 10rem 6rem;
-  align-items: baseline;
-  gap: 1rem;
-}
-.write-table-header {
-  padding-bottom: 12px;
-  border-bottom: 1px solid currentColor;
-  font-size: 0.8em;
-  opacity: 0.6;
-}
-.write-row { border-bottom: 1px solid rgba(128,128,128,0.35); }
-.write-row > summary {
-  list-style: none;
-  cursor: pointer;
-  padding: clamp(14px, 2vh, 24px) 0;
-}
-.write-row > summary::-webkit-details-marker { display: none; }
-.write-row > summary:hover { opacity: 0.6; }
-
-.write-body {
-  padding: 0 0 clamp(20px, 3vh, 40px) 5rem;
-  max-width: 48rem;
-  line-height: 1.9;
-  white-space: pre-line; /* 줄바꿈을 입력한 그대로 보여줌 */
-}
-
-@media (max-width: 700px) {
-  .write-table-header,
-  .write-row > summary { grid-template-columns: 2.5rem 1fr 5rem; }
-  .write-table-header .col-cat,
-  .write-row > summary .col-cat { display: none; }
-  .write-body { padding-left: 0; }
-}
-</style>
+  <style>
+    /* Write 페이지 전용: 푸터를 항상 맨 아래로, 글은 archive와 같은 좌우 여백(2rem) */
+    body.page-write {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    .write-main {
+      flex: 1 0 auto;
+      padding: 0 2rem 4rem;
+    }
+    .write-text {
+      max-width: 60rem;          /* 줄이 너무 길어지지 않게. 더 넓히려면 숫자를 키우세요 */
+      font-size: 0.88rem;        /* viewer-desc와 같은 크기 */
+      line-height: 1.9;
+      white-space: pre-line;     /* 입력한 줄바꿈 그대로 */
+    }
+    @media (max-width: 860px) {
+      .write-main { padding: 0 1.5rem 3rem; }
+    }
+  </style>
 </head>
+<body class="page-archive page-write">
 
-<body class="page-write">
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="site-name">주현완</a>
+    </div>
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">About</a>
+      <a href="archive.html" class="nav-link">Work</a>
+      <a href="write.html" class="nav-link active">Write</a>
+      <a href="cv.html" class="nav-link">CV</a>
+      <a href="mailto:krhwyy@gmail.com" class="nav-link">Contact</a>
+      <a href="exhibition.html" class="nav-link">Exhibition</a>
+      <a href="https://instagram.com/3qcnet" target="_blank" class="nav-link">Instagram</a>
+    </nav>
+  </header>
 
-<!-- ========== HEADER ========== -->
-<header class="site-header">
-  <div class="header-left">
-    <a href="index.html" class="site-name">주현완</a>
-  </div>
-  <nav class="header-nav">
-    <a href="index.html" class="nav-link">About</a>
-    <a href="archive.html" class="nav-link">Work</a>
-    <a href="write.html" class="nav-link active">Write</a>
-    <a href="cv.html" class="nav-link">CV</a>
-    <a href="mailto:krhwyy@gmail.com" class="nav-link">Contact</a>
-    <a href="exhibition.html" class="nav-link">Exhibition</a>
-    <a href="https://instagram.com/3qcnet" target="_blank" class="nav-link">Instagram</a>
-  </nav>
-</header>
-
-<!-- ========== WRITE TOP ========== -->
-<div class="write-topbar">
-  <h1 class="write-title">Write</h1>
-</div>
-
-<!-- ========== WRITE LIST ========== -->
-<main class="write-main">
-  <div class="write-table-header">
-    <span class="col-num"></span>
-    <span class="col-title">Title</span>
-    <span class="col-cat">Category</span>
-    <span class="col-year">Year</span>
+  <!-- ========== TITLE (archive와 같은 클래스) ========== -->
+  <div class="archive-topbar">
+    <h1 class="archive-title">Write</h1>
   </div>
 
-  <!-- 글 하나 = details 블록 하나. 아래 블록을 복사해서 추가하세요. -->
-  <details class="write-row">
-    <summary>
-      <span class="col-num">01</span>
-      <span class="col-title">제목을 입력하세요</span>
-      <span class="col-cat">Essay</span>
-      <span class="col-year">2026</span>
-    </summary>
-    <div class="write-body">여기에 글 내용을 붙여넣으세요.
+  <!-- ========== 글 ========== -->
+  <main class="write-main">
+    <div class="write-text">여기에 글을 붙여넣으세요.
 줄바꿈은 입력한 그대로 보여요.
 
-문단 사이는 한 줄 비우면 돼요.</div>
-  </details>
+문단 사이는 한 줄 비우면 돼요.
 
-</main>
+글이 길어지면 이 아래로 계속 이어서 쓰면 됩니다.</div>
+  </main>
 
-<!-- ========== FOOTER ========== -->
-<footer class="site-footer">
-  <span>Copyright © WANAREANETWORK All Right Reserved.</span>
-  <a href="index.html" class="footer-work-link">← About</a>
-</footer>
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <span>Copyright © WANAREANETWORK All Right Reserved.</span>
+    <a href="index.html" class="footer-work-link">← About</a>
+  </footer>
 
 </body>
 </html>
