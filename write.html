@@ -193,14 +193,18 @@
     /* ✏️ 영수증에 랜덤으로 찍힐 문장들 — 아래 목록을 원하는 문장으로 바꾸세요.
        문장 하나 = 따옴표 하나. 줄바꿈이 필요하면 \n 을 쓰세요. */
     var SENTENCES = [
-      '첫 번째 문장을 여기에 적으세요.',
-      '두 번째 문장을 여기에 적으세요.\n줄바꿈은 이렇게 해요.',
-      '세 번째 문장을 여기에 적으세요.',
-      '네 번째 문장을 여기에 적으세요.',
-      '다섯 번째 문장을 여기에 적으세요.'
+      '안녕 안녕 안녕
+      \n하세요 
+      \n안심하세요
+      \n안심하세요?',
+      '세상은 버려진 것들로 가득 차게 되었고
+      \n이미 했던 생각이야 이미 했던 말들이야',
+      '있을 수 없는 일은
+      \n일어난 모든 일 ',
+      'I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou I’m Fine Thankyou ',
     ];
 
-    var SHOW_TIME   = false;   // true 로 바꾸면 영수증 아래에 날짜·시간이 같이 찍혀요
+    var SHOW_TIME   = true;   // true 로 바꾸면 영수증 아래에 날짜·시간이 같이 찍혀요
     var COOLDOWN_MS = 4000;    // 연타 방지: 한 번 누르면 이 시간 동안 버튼이 잠겨요
 
     var btn         = document.getElementById('printBtn');
