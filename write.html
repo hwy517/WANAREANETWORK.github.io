@@ -75,6 +75,7 @@
       background: var(--bg);
       border: 1px solid var(--text);
       border-radius: 12px;
+      font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', -apple-system, 'Helvetica Neue', Arial, sans-serif;
     }
     .modal-head,
     .modal-foot {
@@ -86,8 +87,6 @@
     .modal-head { min-height: 48px; }
     .modal-foot {
       margin-top: 0.5rem;
-      padding-top: 0.25rem;
-      border-top: 1px solid var(--text);
     }
     .modal-label,
     .modal-count {
@@ -118,7 +117,8 @@
       cursor: pointer;
     }
     .modal-btn:hover { opacity: 0.6; }
-    .modal-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+    .modal-btn:focus,
+    .modal-btn:focus-visible { outline: none; }
 
     /* ===== PRESS 버튼 =====
        --w / --h : 버튼 지름 (크기를 바꾸려면 여기 숫자만 수정)
@@ -439,7 +439,6 @@
       render(0);
       modal.hidden = false;
       document.body.style.overflow = 'hidden';     // 뒤 페이지 스크롤 잠금
-      closeBtn.focus();
     }
 
     function closeModal() {
