@@ -2,7 +2,11 @@
    WANAREA NETWORK — style.css
    ✏️ 색상 변경: :root 변수만 수정하면 됩니다
    ===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
+* {
+  font-family: 'Noto Sans KR', 'Helvetica Neue', Arial, sans-serif !important;
+}
 :root {
   --bg: #ffffff;
   --text: #111111;
