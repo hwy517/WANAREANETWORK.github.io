@@ -773,3 +773,18 @@ body.page-write > main { animation: fadein .6s ease-out backwards; }
 strong, b, th, h1, h2, h3, h4 {
   font-weight: 500;
 }
+.cv-section { margin-bottom: 2.5rem; }
+.cv-heading {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  opacity: 0.6;
+}
+.cv-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
