@@ -386,6 +386,11 @@ Every one of my works begins with <strong>EPISODES</strong> from everyday life t
       btn.disabled = true;
       setTimeout(function () { btn.disabled = false; }, COOLDOWN_MS);
 
+           var mm = Math.ceil(document.getElementById('receipt').offsetHeight * 25.4 / 96);
+      if (mm < 30) mm = 30;
+      var st = document.getElementById('pageSize');
+      if (!st) { st = document.createElement('style'); st.id = 'pageSize'; document.head.appendChild(st); }
+      st.textContent = '@page { size: 79mm ' + mm + 'mm; margin: 0; }';
       window.print();
     });
   })();
