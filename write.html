@@ -208,17 +208,16 @@
       }
 
       #receipt {
-        display: block;
-        width: 72mm;                    /* 프린터 실제 인쇄 폭 (SRP-E300 기준 72mm) */
-        padding: 5mm 4mm 16mm;          /* 아래 여백: 글이 커터에 안 잘리게 */
-        box-sizing: border-box;
-        color: #000;
-        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-        font-size: 11pt;
-        line-height: 1.7;
-        white-space: pre-line;
-        word-break: keep-all;
-      }
+  position: absolute; left: -9999px; top: 0;
+  width: 79mm;
+  padding: 5mm 8mm 12mm;      /* 좌우 8mm: 글자가 들어가는 폭은 약 63mm */
+  box-sizing: border-box;
+  color: #000;
+  font-size: 11pt;
+  line-height: 1.7;
+  white-space: pre-line;
+  word-break: keep-all;
+}
       #receipt .receipt-time {
         margin-top: 4mm;
         font-size: 8pt;
