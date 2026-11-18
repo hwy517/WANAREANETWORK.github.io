@@ -193,35 +193,33 @@
       }
     }
 
-    /* ===== 영수증 출력용 (화면에서는 숨김) ===== */
-    #receipt { display: none; }
+       /* ===== 영수증 출력용 ===== */
+    #receipt {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      width: 79mm;
+      padding: 5mm 8mm 12mm;
+      box-sizing: border-box;
+      color: #000;
+      font-size: 11pt;
+      line-height: 1.7;
+      white-space: pre-line;
+      word-break: keep-all;
+    }
+    #receipt .receipt-time { margin-top: 4mm; font-size: 8pt; }
 
     @media print {
       @page { margin: 0; }
-
-      /* 영수증 외의 모든 것을 인쇄에서 제외 (일화 카드 포함) */
       body.page-write > *:not(#receipt) { display: none !important; }
-      body.page-write {
-        display: block;
-        min-height: 0;
-        background: #fff;
-      }
-
+      body.page-write { display: block !important; min-height: 0 !important; background: #fff; }
       #receipt {
-  position: absolute; left: -9999px; top: 0;
-  width: 79mm;
-  padding: 5mm 8mm 12mm;      /* 좌우 8mm: 글자가 들어가는 폭은 약 63mm */
-  box-sizing: border-box;
-  color: #000;
-  font-size: 11pt;
-  line-height: 1.7;
-  white-space: pre-line;
-  word-break: keep-all;
-}
-      #receipt .receipt-time {
-        margin-top: 4mm;
-        font-size: 8pt;
+        display: block !important;
+        position: static !important;
+        left: auto !important;
+        width: 79mm;
       }
+      #receipt .receipt-time { margin-top: 4mm; font-size: 8pt; }
     }
   </style>
 </head>
