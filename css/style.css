@@ -804,3 +804,8 @@ body:not(.page-about) {
 @media (max-width: 560px) {
   .site-footer span { white-space: normal; }
 }
+/* exhibition: 제목이 두 줄로 꺾이지 않게 */
+body:has(.nav-link.active[href="exhibition.html"]) main td,
+body:has(.nav-link.active[href="exhibition.html"]) main th {
+  white-space: nowrap;
+}
