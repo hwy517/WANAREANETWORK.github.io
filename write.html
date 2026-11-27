@@ -478,6 +478,28 @@ Every one of my works begins with <strong>EPISODES</strong> from everyday life t
     });
   })();
   </script>
+<script>
+(function () {
+  var IDLE_MS = 10 * 60 * 1000;
+  var HOME = 'https://hwy517.github.io/WANAREANETWORK.github.io/index.html';
+  var timer;
 
+  var path = location.pathname;
+  var isHome = /\/index\.html$/.test(path) || /\/WANAREANETWORK\.github\.io\/?$/.test(path);
+
+  function reset() {
+    clearTimeout(timer);
+    if (isHome) return;
+    timer = setTimeout(function () { location.href = HOME; }, IDLE_MS);
+  }
+
+  ['mousemove', 'mousedown', 'keydown', 'touchstart', 'wheel', 'scroll', 'click']
+    .forEach(function (ev) {
+      document.addEventListener(ev, reset, { passive: true });
+    });
+
+  reset();
+})();
+</script>
 </body>
 </html>
